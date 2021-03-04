@@ -3,11 +3,16 @@ import { Component, RefObject } from "react";
 
 type ArtificialHorizonProps = {
     pitch: number,
-    bank: number
+    bank: number,
+    height:number,
+    width:number
 }
 export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
     canvasRef: RefObject<HTMLCanvasElement>
-
+    static defaultProps={
+        height:400,
+        width:600
+    }
     constructor(props: ArtificialHorizonProps) {
         super(props)
         this.canvasRef = React.createRef<HTMLCanvasElement>()
@@ -15,21 +20,24 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
     render() {
         return (
             <div>
-                <canvas ref={this.canvasRef} />
+                <canvas ref={this.canvasRef} height={this.props.height} width={this.props.width} />
             </div>
         )
+    }
+    componentDidMount(){
+        this.componentDidUpdate()
     }
     componentDidUpdate() {
         const ctx = this.canvasRef.current?.getContext("2d")
         if (!ctx)
-            return 
+            return
         //render artificial horizon here. Access pitch and bank using this.props.pitch.
-        
+
         const pitch = this.props.pitch
         const bank = this.props.bank
         const factor = 5
-        const width = 600
-        const height = 400
+        const width = this.props.width
+        const height = this.props.height
         var fwidth = 2.5 * width
         var fheight = factor * height
         //horizon
@@ -74,7 +82,7 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
             ctx.beginPath();
             ctx.moveTo(0, -height / 2.2);
             ctx.lineTo(0, -height / 2.1);
-            if (i == 0) {
+            if (i === 0) {
                 ctx.lineTo(0, -height / 2.01);
             }
             ctx.stroke();
@@ -85,5 +93,5 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
         ctx.rotate(bank * Math.PI / 180);
         ctx.translate(-width / 2, -height / 2);
 
-        }
+    }
 }
