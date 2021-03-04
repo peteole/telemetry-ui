@@ -3,7 +3,7 @@ import { Component, RefObject } from "react";
 
 type GaugeProps = {
     value: number,
-    orientation: "horizonal" | "vertical"
+    orientation: "horizontal" | "vertical"
 }
 export class Gauge extends Component<GaugeProps, {}>{
     canvasRef: RefObject<HTMLCanvasElement>
