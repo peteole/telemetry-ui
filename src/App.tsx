@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <ArtificialHorizon pitch={0} bank={0}></ArtificialHorizon>
-      <Gauge value={0} orientation="horizontal"></Gauge>
+      <Gauge height={400} width={50} value={0} orientation="vertical"></Gauge>
     </div>
   );
 }
