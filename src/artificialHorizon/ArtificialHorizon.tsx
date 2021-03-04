@@ -29,6 +29,7 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
     }
     componentDidUpdate() {
         const ctx = this.canvasRef.current?.getContext("2d")
+        
         if (!ctx)
             return
         //render artificial horizon here. Access pitch and bank using this.props.pitch.
@@ -65,6 +66,7 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
             ctx.lineTo(3 * factor, factor * i);
             ctx.stroke();
         }
+        ctx.font = "30px Arial";
         ctx.strokeText("10", -17 * factor, -8 * factor);
         ctx.strokeText("10", 10 * factor, -8 * factor);
         ctx.strokeText("10", -17 * factor, 12 * factor);

@@ -5,8 +5,8 @@ import { Gauge } from './gauge/Gauge';
 function App() {
   return (
     <div className="App">
-      <ArtificialHorizon pitch={0} bank={0}></ArtificialHorizon>
-      <Gauge height={400} width={50} value={0} orientation="vertical"></Gauge>
+      <ArtificialHorizon pitch={12} bank={15}></ArtificialHorizon>
+      <Gauge height={50} width={600} value={340} orientation="horizontal"></Gauge>
     </div>
   );
 }
