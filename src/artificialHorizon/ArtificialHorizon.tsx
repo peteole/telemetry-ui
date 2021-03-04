@@ -32,7 +32,7 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
         const height = 400
         var fwidth = 2.5 * width
         var fheight = factor * height
-        
+        //horizon
         ctx.translate(width / 2, height / 2);
         ctx.rotate(-bank * Math.PI / 180);
         ctx.translate(0, factor * pitch);
