@@ -4,9 +4,9 @@ import { Component, RefObject } from "react";
 type GaugeProps = {
     altitude: number,
     mhdg: number,
-    orientation:"horizonal"|"vertical"
+    orientation:"horizontal"|"vertical"
 }
-export class ArtificialHorizon extends Component<GaugeProps, {}>{
+export class Gauge extends Component<GaugeProps, {}>{
     canvasRef: RefObject<HTMLCanvasElement>
 
     constructor(props: GaugeProps) {
