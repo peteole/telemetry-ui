@@ -1,0 +1,25 @@
+.alt-gauge{
+    position: absolute;
+    right: 10px;
+    top: 0px;
+}
+.heading-gauge{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+.speed-gauge{
+    position: absolute;
+    left:10px;
+    top: 0px;
+}
+.ah-container{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+.ah-canvas{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
