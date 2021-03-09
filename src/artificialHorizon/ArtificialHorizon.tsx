@@ -31,7 +31,7 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
         return (
             <div className="ah-container" style={{ height: this.props.height, width: this.props.width }}>
                 <canvas className="ah-canvas" ref={this.canvasRef} height={this.props.height} width={this.props.width} />
-                <Gauge className="heading-gauge" ref={this.headingRef} height={this.props.height * 0.08} orientation={"horizontal"} width={this.props.width} value={this.props.heading} />
+                <Gauge className="heading-gauge" ref={this.headingRef} height={this.props.height * 0.08} orientation={"horizontal"} width={this.props.width * 0.7} value={this.props.heading} />
                 <Gauge className="alt-gauge" ref={this.altitudeRef} height={this.props.height} orientation={"verticalR"} width={this.props.width * 0.12} value={this.props.altitude} />
                 <Gauge className="speed-gauge" ref={this.speedRef} height={this.props.height} orientation={"verticalL"} width={this.props.width * 0.13} value={this.props.speed} />
             </div>
@@ -87,7 +87,7 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
             ctx.strokeText(i + "", 50, i * factor + 10);
 
         }
-        
+
 
         ctx.translate(0, -factor * pitch);
         /**scale bank */

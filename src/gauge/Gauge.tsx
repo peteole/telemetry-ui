@@ -66,8 +66,9 @@ export class Gauge extends Component<GaugeProps, {}>{
                 ctx.font = "15px Arial";
                 let j = i % 360;
                 if (j < 0) { j = j + 360 }
+                let k = ("000" + j).slice(-3);
 
-                ctx.strokeText(j.toString(), width / 2 + (i - value) * 2 * factor - 14, height * 0.8);
+                ctx.strokeText(k, width / 2 + (i - value) * 2 * factor - 14, height * 0.8);
                 ctx.beginPath();
                 ctx.moveTo(width / 2 + (i - value) * 2 * factor, height * 0.1);
                 ctx.lineTo(width / 2 + (i - value) * 2 * factor, height * 0.4);
@@ -80,15 +81,16 @@ export class Gauge extends Component<GaugeProps, {}>{
                 ctx.stroke();
             }
         }
-        ctx.fillStyle="black";
-        ctx.fillRect(width * 0.5 - 25, 3, 50, height*0.9); //Value on PFD
+        ctx.fillStyle = "black";
+        ctx.fillRect(width * 0.5 - 25, 3, 50, height * 0.9); //Value on PFD
         ctx.strokeStyle = "white";
         ctx.beginPath();
 
-        ctx.rect(width * 0.5 - 25, 3, 50, height*0.9);
+        ctx.rect(width * 0.5 - 25, 3, 50, height * 0.9);
         ctx.stroke();
         ctx.font = "20px Arial";
-        ctx.strokeText(value.toString(), width * 0.5 - 17, height * 0.8);
+        let k = ("000" + value).slice(-3);
+        ctx.strokeText(k, width * 0.5 - 17, height * 0.8);
 
 
 
@@ -114,25 +116,25 @@ export class Gauge extends Component<GaugeProps, {}>{
                 ctx.font = "15px Arial";
                 ctx.strokeText(i.toString(), width * 0.1, height / 2 + 5 - (i - value) * 2 * factor);
                 ctx.beginPath();
-                ctx.moveTo(width * 0.6, height / 2 - (i - value) * 2 * factor);
+                ctx.moveTo(width * 0.5, height / 2 - (i - value) * 2 * factor);
                 ctx.lineTo(width * 0.9, height / 2 - (i - value) * 2 * factor);
                 ctx.stroke();
             }
             else if (i % 5 === 0) {
                 ctx.beginPath();
-                ctx.moveTo(width * 0.3, height / 2 - (i - value) * 2 * factor);
+                ctx.moveTo(width * 0.6, height / 2 - (i - value) * 2 * factor);
                 ctx.lineTo(width * 0.9, height / 2 - (i - value) * 2 * factor);
                 ctx.stroke();
             }
         }
         ctx.fillStyle = "black";
-        ctx.fillRect(width * 0.01, height / 2 - 25, width * 0.9, 50); //Value on PFD
+        ctx.fillRect(width * 0.01, height / 2 - 20, width * 0.9, 40); //Value on PFD
         ctx.strokeStyle = "white";
         ctx.beginPath();
-        ctx.rect(width * 0.01, height / 2 - 25, width * 0.9, 50);
+        ctx.rect(width * 0.01, height / 2 - 20, width * 0.9, 40);
         ctx.stroke();
         ctx.font = "20px Arial";
-        ctx.strokeText(value + " m/s", width * 0.1, height / 2 + 12);
+        ctx.strokeText(value + " m/s", width * 0.1, height / 2 + 10);
 
 
     }
@@ -172,14 +174,14 @@ export class Gauge extends Component<GaugeProps, {}>{
             }
         }
         ctx.fillStyle = "black";
-        ctx.fillRect(width * 0.01, height / 2 - 25, width * 0.99, 50); //Value on PFD
+        ctx.fillRect(width * 0.01, height / 2 - 20, width * 0.99, 40); //Value on PFD
         ctx.strokeStyle = "white";
         ctx.beginPath();
-        ctx.rect(width * 0.01, height / 2 - 25, width * 0.99, 50);
+        ctx.rect(width * 0.01, height / 2 - 20, width * 0.99, 40);
         ctx.stroke();
         ctx.font = "20px Arial";
-        
-        ctx.strokeText(value + " m", width * 0.1, height / 2 + 12);
+
+        ctx.strokeText(value + " m", width * 0.1, height / 2 + 10);
 
 
     }
