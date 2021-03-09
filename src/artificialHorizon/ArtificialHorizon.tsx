@@ -31,8 +31,8 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
         return (
             <div className="ah-container" style={{ height: this.props.height, width: this.props.width }}>
                 <canvas className="ah-canvas" ref={this.canvasRef} height={this.props.height} width={this.props.width} />
-                <Gauge className="heading-gauge" ref={this.headingRef} height={this.props.height * 0.1} orientation={"horizontal"} width={this.props.width} value={this.props.heading} />
-                <Gauge className="alt-gauge" ref={this.altitudeRef} height={this.props.height} orientation={"verticalR"} width={this.props.width * 0.1} value={this.props.altitude} />
+                <Gauge className="heading-gauge" ref={this.headingRef} height={this.props.height * 0.08} orientation={"horizontal"} width={this.props.width} value={this.props.heading} />
+                <Gauge className="alt-gauge" ref={this.altitudeRef} height={this.props.height} orientation={"verticalR"} width={this.props.width * 0.12} value={this.props.altitude} />
                 <Gauge className="speed-gauge" ref={this.speedRef} height={this.props.height} orientation={"verticalL"} width={this.props.width * 0.13} value={this.props.speed} />
             </div>
         )
@@ -62,7 +62,7 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
         ctx.fillRect(-fwidth / 2, 0, fwidth, fheight / 2);
         ctx.fillStyle = "blue";
         ctx.fillRect(-fwidth / 2, -fheight / 2, fwidth, fheight / 2);
-        for (let i = -60; i <= 60; i = i + 10) {
+        for (let i = -80; i <= 80; i = i + 10) {
             ctx.lineWidth = 1;
             ctx.moveTo(-50, factor * i);
             ctx.lineTo(50, factor * i);
@@ -70,25 +70,24 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
             ctx.stroke();
         }
         for (let i = -25; i <= 25; i = i + 10) {
-            ctx.moveTo(-5 * factor, factor * i);
-            ctx.lineTo(5 * factor, factor * i);
+            ctx.moveTo(-30, factor * i);
+            ctx.lineTo(30, factor * i);
             ctx.stroke();
         }
-        for (let i = -27.5; i <= 27.5; i = i + 5) {
-            ctx.moveTo(-3 * factor, factor * i);
-            ctx.lineTo(3 * factor, factor * i);
+        for (let i = -17.5; i <= 17.5; i = i + 5) {
+            ctx.moveTo(-15, factor * i);
+            ctx.lineTo(15, factor * i);
             ctx.stroke();
         }
         ctx.font = "30px Arial";
-        ctx.strokeText("10", -85, -10 * factor + 10);
-        ctx.strokeText("10", 50, -10 * factor + 10);
-        ctx.strokeText("10", -85, 10 * factor + 10);
-        ctx.strokeText("10", 50, 10 * factor + 10);
-        ctx.strokeText("20", -85, -20 * factor + 10);
-        ctx.strokeText("20", 50, -20 * factor + 10);
-        ctx.strokeText("20", -85, 20 * factor + 10);
-        ctx.strokeText("20", 50, 20 * factor + 10);
+        for (let i = 10; i <= 80; i = i + 10) {
+            ctx.strokeText(i + "", -85, -i * factor + 10);
+            ctx.strokeText(i + "", 50, -i * factor + 10);
+            ctx.strokeText(i + "", -85, i * factor + 10);
+            ctx.strokeText(i + "", 50, i * factor + 10);
 
+        }
+        
 
         ctx.translate(0, -factor * pitch);
         /**scale bank */

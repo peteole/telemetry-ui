@@ -80,9 +80,12 @@ export class Gauge extends Component<GaugeProps, {}>{
                 ctx.stroke();
             }
         }
-        ctx.clearRect(width * 0.5 - 25, 5, 50, height*0.9); //Value on PFD
+        ctx.fillStyle="black";
+        ctx.fillRect(width * 0.5 - 25, 3, 50, height*0.9); //Value on PFD
+        ctx.strokeStyle = "white";
         ctx.beginPath();
-        ctx.rect(width * 0.5 - 25, 5, 50, height*0.9);
+
+        ctx.rect(width * 0.5 - 25, 3, 50, height*0.9);
         ctx.stroke();
         ctx.font = "20px Arial";
         ctx.strokeText(value.toString(), width * 0.5 - 17, height * 0.8);
@@ -122,7 +125,9 @@ export class Gauge extends Component<GaugeProps, {}>{
                 ctx.stroke();
             }
         }
-        ctx.clearRect(width * 0.1, height / 2 - 25, width * 0.8, 50); //Value on PFD
+        ctx.fillStyle = "black";
+        ctx.fillRect(width * 0.01, height / 2 - 25, width * 0.9, 50); //Value on PFD
+        ctx.strokeStyle = "white";
         ctx.beginPath();
         ctx.rect(width * 0.01, height / 2 - 25, width * 0.9, 50);
         ctx.stroke();
@@ -166,11 +171,14 @@ export class Gauge extends Component<GaugeProps, {}>{
                 ctx.stroke();
             }
         }
-        ctx.clearRect(width * 0.1, height / 2 - 25, width * 0.8, 50); //Value on PFD
+        ctx.fillStyle = "black";
+        ctx.fillRect(width * 0.01, height / 2 - 25, width * 0.99, 50); //Value on PFD
+        ctx.strokeStyle = "white";
         ctx.beginPath();
         ctx.rect(width * 0.01, height / 2 - 25, width * 0.99, 50);
         ctx.stroke();
         ctx.font = "20px Arial";
+        
         ctx.strokeText(value + " m", width * 0.1, height / 2 + 12);
 
 
