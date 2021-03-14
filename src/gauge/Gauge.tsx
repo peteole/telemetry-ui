@@ -53,11 +53,12 @@ export class Gauge extends Component<GaugeProps, {}>{
         if (!ctx)
             return
         //render gauge here. Access value using this.props.value.
-        const value = this.props.value
+        const value = Math.round(this.props.value)
         const factor = 5
         const width = this.props.width
         const height = this.props.height
-
+        ctx?.clearRect(0,0,width, height)
+        ctx.translate(-2*factor*(this.props.value-value),0)
         /**value band */
         for (let i = (value - 25); i <= (value + 25); i++) {
             ctx.strokeStyle = "black";
@@ -81,6 +82,8 @@ export class Gauge extends Component<GaugeProps, {}>{
                 ctx.stroke();
             }
         }
+        ctx.resetTransform()
+
         ctx.fillStyle = "black";
         ctx.fillRect(width * 0.5 - 25, 3, 50, height * 0.9); //Value on PFD
         ctx.strokeStyle = "white";
@@ -89,7 +92,7 @@ export class Gauge extends Component<GaugeProps, {}>{
         ctx.rect(width * 0.5 - 25, 3, 50, height * 0.9);
         ctx.stroke();
         ctx.font = "20px Arial";
-        let k = ("000" + value).slice(-3);
+        let k = ("000" + value%360).slice(-3);
         ctx.strokeText(k, width * 0.5 - 17, height * 0.8);
 
 
@@ -101,13 +104,13 @@ export class Gauge extends Component<GaugeProps, {}>{
         if (!ctx)
             return
         //render gauge here. Access value using this.props.value.
-        const value = this.props.value
+        const value = Math.round(this.props.value)
 
         const factor = 10
         const width = this.props.width
         const height = this.props.height
-
-
+        ctx?.clearRect(0,0,width, height)
+        ctx.translate(0,2*factor*(this.props.value-value))
         /**value band */
         for (let i = (value - 10); i <= (value + 10); i++) {
             ctx.strokeStyle = "black";
@@ -127,6 +130,7 @@ export class Gauge extends Component<GaugeProps, {}>{
                 ctx.stroke();
             }
         }
+        ctx.resetTransform()
         ctx.fillStyle = "black";
         ctx.fillRect(width * 0.01, height / 2 - 20, width * 0.9, 40); //Value on PFD
         ctx.strokeStyle = "white";
@@ -146,14 +150,15 @@ export class Gauge extends Component<GaugeProps, {}>{
         if (!ctx)
             return
         //render gauge horion here. Access value using this.props.value.
-        const value = this.props.value
+        const value = Math.round(this.props.value)
 
 
         const factor = 5
         const width = this.props.width
         const height = this.props.height
+        ctx?.clearRect(0,0,width, height)
 
-
+        ctx.translate(0,2*factor*(this.props.value-value))
         /**value band */
         for (let i = (value - 25); i <= (value + 25); i++) {
             ctx.strokeStyle = "black";
@@ -173,6 +178,9 @@ export class Gauge extends Component<GaugeProps, {}>{
                 ctx.stroke();
             }
         }
+        ctx.resetTransform()
+
+
         ctx.fillStyle = "black";
         ctx.fillRect(width * 0.01, height / 2 - 20, width * 0.99, 40); //Value on PFD
         ctx.strokeStyle = "white";
