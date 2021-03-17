@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Logic } from './logic';
-const socket = new WebSocket("localhost:8081")
+import { Logic, sampleInputBuffer } from './logic';
+//const socket = new WebSocket("localhost:8081")
 const logic = new Logic({
-  writeData: data => socket.send(data),
+  writeData: data => {},//socket.send(data),
   onData: null
 })
 ReactDOM.render(
@@ -15,6 +15,10 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+setTimeout(() => {
+  if (logic.streamHook.onData)
+    logic.streamHook.onData(sampleInputBuffer)
+}, 1000)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
