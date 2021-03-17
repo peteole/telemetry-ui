@@ -12,7 +12,7 @@ class App extends React.Component<{ logic: Logic }, {}> {
   render() {
     return (
       <div className="App">
-        <ArtificialHorizon pitch={this.props.logic.data.pitch} bank={this.props.logic.data.bank} heading={this.props.logic.data.heading} altitude={this.props.logic.data.alt} speed={this.props.logic.data.speed} />
+        <ArtificialHorizon pitch={this.props.logic.data.pitch} bank={this.props.logic.data.bank} heading={this.props.logic.data.heading} altitude={this.props.logic.data.altitude} speed={this.props.logic.data.speed} />
       </div>
     );
   }
