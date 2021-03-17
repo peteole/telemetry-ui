@@ -1,5 +1,4 @@
-import { Message, MessageRegistry } from "telemetryprotocolclient/dist/index"
-import { NumberSensorValue, SensorValue } from "telemetryprotocolclient/dist/SensorValue"
+import {  MessageRegistry } from "telemetryprotocolclient/dist/index"
 
 class AbstractStreamHook {
     onData: ((data: ArrayBuffer) => void) | null = null;
