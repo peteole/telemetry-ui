@@ -1,4 +1,4 @@
-import {  MessageRegistry } from "telemetryprotocolclient/dist/index"
+import { MessageRegistry } from "telemetryprotocolclient/dist/index"
 
 class AbstractStreamHook {
     onData: ((data: ArrayBuffer) => void) | null = null;
@@ -11,9 +11,12 @@ export class Logic {
         pitch: 0,
         bank: 0,
         heading: 0,
-        speed: 0
+        speed: 0,
+        alt:0
     }
+    readonly streamHook: AbstractStreamHook
     constructor(streamHook: AbstractStreamHook, onUpdate = () => { }) {
+        this.streamHook = streamHook
         this.registry = new MessageRegistry()
         this.onUpdate = onUpdate
         streamHook.onData = (data) => {
