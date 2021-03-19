@@ -54,6 +54,7 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
         const height = this.props.height
         var fwidth = 2.5 * width
         var fheight = factor * height
+        
         //horizon
         ctx.translate(width / 2, height / 2);
         ctx.rotate(-bank * Math.PI / 180);
@@ -90,7 +91,30 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
 
 
         ctx.translate(0, -factor * pitch);
+        /**triangle marker for bank */
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(0, -height / 2.5);
+        ctx.lineTo(-8, -height / 2.7);
+        ctx.lineTo(8, -height / 2.7);
+        ctx.lineTo(0, -height / 2.5);
+        ctx.strokeStyle = "yellow";
+        ctx.stroke();
+        
+        
+        ctx.rotate(bank * Math.PI / 180);
+        ctx.translate(-width / 2, -height / 2);
+
+        //Elements are fixed from here
+        //circle
+        ctx.beginPath();
+        ctx.arc(width / 2, height / 2, height / 2.5, 0, 2 * Math.PI);
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "black";
+        ctx.stroke();
+        
         /**scale bank */
+        ctx.translate(width / 2, height / 2);
         ctx.rotate(30 * Math.PI / 180);
         for (let i = -30; i <= 30; i = i + 10) {
             ctx.beginPath();
@@ -103,33 +127,18 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
             ctx.rotate(-10 * Math.PI / 180);
         }
         ctx.rotate(40 * Math.PI / 180);
-
-        ctx.rotate(bank * Math.PI / 180);
         ctx.translate(-width / 2, -height / 2);
 
-        //circle
-        ctx.beginPath();
-        ctx.arc(width / 2, height / 2, height / 2.5, 0, 2 * Math.PI);
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "black";
-        ctx.stroke();
-        /**triangle marker for bank */
-        ctx.translate(width / 2, height / 2);
-        ctx.beginPath();
-        ctx.moveTo(0, -height / 2.5);
-        ctx.lineTo(-8, -height / 2.3);
-        ctx.lineTo(8, -height / 2.3);
-        ctx.lineTo(0, -height / 2.5);
-        ctx.strokeStyle = "yellow";
-        ctx.stroke();
-        ctx.translate(-width / 2, -height / 2);
 
+        
+
+        /**aircraft symbol */
         ctx.beginPath();
         ctx.rect(width / 2 - 5, height / 2 - 5, 10, 10);
         ctx.lineWidth = 3;
         ctx.strokeStyle = "yellow";
         ctx.stroke();
-        /**aircraft symbol */
+        
         ctx.beginPath();
         ctx.moveTo(-height / 2.3 + width / 2, height / 2);
         ctx.lineTo(-height / 4 + width / 2, height / 2);

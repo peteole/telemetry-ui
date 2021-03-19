@@ -61,7 +61,7 @@ export class Gauge extends Component<GaugeProps, {}>{
         ctx.translate(-2*factor*(this.props.value-value),0)
         /**value band */
         for (let i = (value - 25); i <= (value + 25); i++) {
-            ctx.strokeStyle = "black";
+            ctx.strokeStyle = "white";
 
             if (i % 10 === 0) {
                 ctx.font = "15px Arial";
@@ -113,7 +113,7 @@ export class Gauge extends Component<GaugeProps, {}>{
         ctx.translate(0,2*factor*(this.props.value-value))
         /**value band */
         for (let i = (value - 10); i <= (value + 10); i++) {
-            ctx.strokeStyle = "black";
+            ctx.strokeStyle = "white";
 
             if (i % 10 === 0) {
                 ctx.font = "15px Arial";
@@ -161,7 +161,7 @@ export class Gauge extends Component<GaugeProps, {}>{
         ctx.translate(0,2*factor*(this.props.value-value))
         /**value band */
         for (let i = (value - 25); i <= (value + 25); i++) {
-            ctx.strokeStyle = "black";
+            ctx.strokeStyle = "white";
 
             if (i % 10 === 0) {
                 ctx.font = "15px Arial";
