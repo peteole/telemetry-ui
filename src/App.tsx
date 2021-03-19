@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { ArtificialHorizon } from './artificialHorizon/ArtificialHorizon';
 import { Logic } from './logic';
+import { Navigation } from './navigation/Navigation';
 class App extends React.Component<{ logic: Logic }, {}> {
   constructor(props: { logic: Logic }) {
     super(props)
@@ -12,7 +13,13 @@ class App extends React.Component<{ logic: Logic }, {}> {
   render() {
     return (
       <div className="App">
-        <ArtificialHorizon pitch={this.props.logic.data.pitch} bank={this.props.logic.data.bank} heading={this.props.logic.data.heading} altitude={this.props.logic.data.altitude} speed={this.props.logic.data.speed} />
+        <Navigation>
+          {{
+            horizon: <ArtificialHorizon pitch={this.props.logic.data.pitch} bank={this.props.logic.data.bank} heading={this.props.logic.data.heading} altitude={this.props.logic.data.altitude} speed={this.props.logic.data.speed} />,
+            settings: <p>settings</p>
+          }}
+        </Navigation>
+
       </div>
     );
   }

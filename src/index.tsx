@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { Logic, sampleInputBuffer } from './logic';
 //const socket = new WebSocket("localhost:8081")
 const logic = new Logic({
-  writeData: data => {},//socket.send(data),
+  writeData: data => { },//socket.send(data),
   onData: null
 })
 ReactDOM.render(
