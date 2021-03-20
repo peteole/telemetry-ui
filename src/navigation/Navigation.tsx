@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import React from 'react'
 import "./Navigation.css"
 
@@ -10,22 +10,16 @@ type NavigationProps = {
         settings: React.ReactNode
     }
 }
-export class Navigation extends React.Component<NavigationProps, {}>{
-    render() {
-        return (
-            <div>
-                <Grid container spacing={3} alignItems="center" alignContent="center">
-                    <Grid item>
-                        {this.props.children.horizon}
-                    </Grid>
+export const Navigation: React.FC<NavigationProps> = (props) => (
+    <div>
+        <Grid container spacing={3} alignItems="center" alignContent="center">
+            <Grid item>
+                {props.children.horizon}
+            </Grid>
 
-                    <Grid item >
-                        <Paper className="settings-element">
-                            {this.props.children.settings}
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </div>
-        )
-    }
-}
+            <Grid item xs={3}>
+                {props.children.settings}
+            </Grid>
+        </Grid>
+    </div>
+)

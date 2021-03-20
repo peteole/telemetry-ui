@@ -1,9 +1,7 @@
 import { MessageRegistry } from "telemetryprotocolclient/dist/index"
+import { AbstractStreamHook, dataSources } from "./Datasource"
 
-class AbstractStreamHook {
-    onData: ((data: ArrayBuffer) => void) | null = null;
-    writeData: (data: ArrayBuffer) => void = data => { };
-}
+
 export class Logic {
     registry: MessageRegistry
     onUpdate: () => void
@@ -14,11 +12,16 @@ export class Logic {
         speed: 0,
         altitude: 0
     }
-    readonly streamHook: AbstractStreamHook
-    constructor(streamHook: AbstractStreamHook, onUpdate = () => { }) {
+    streamHook: AbstractStreamHook
+    constructor(onUpdate = () => { }) {
+        this.streamHook = dataSources[0].getStreamHook()
+        this.registry = new MessageRegistry()
+        this.setStreamHook(this.streamHook)
+        this.onUpdate = onUpdate
+    }
+    setStreamHook(streamHook: AbstractStreamHook) {
         this.streamHook = streamHook
         this.registry = new MessageRegistry()
-        this.onUpdate = onUpdate
         streamHook.onData = (data) => {
             this.registry.readData(data)
             for (const sensVal of this.registry.basicSensorValues) {
