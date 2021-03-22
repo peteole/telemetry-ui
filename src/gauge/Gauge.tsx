@@ -93,7 +93,7 @@ export class Gauge extends Component<GaugeProps, {}>{
         ctx.stroke();
         ctx.font = "20px Arial";
         let k = ("000" + value%360).slice(-3);
-        ctx.strokeText(k, width * 0.5 - 17, height * 0.8);
+        ctx.strokeText(k+"°", width * 0.5 - 17, height * 0.8);
 
 
 
