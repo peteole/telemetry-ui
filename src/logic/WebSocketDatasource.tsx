@@ -1,6 +1,6 @@
 import { Link, MenuItem, Select, TextField } from "@material-ui/core"
-import { render } from "@testing-library/react"
-import React from "react"
+import { ContactsOutlined } from "@material-ui/icons"
+import React, { useEffect, useRef } from "react"
 import { DataSource, AbstractStreamHook } from "./Datasource"
 
 export class WebSocketDataSource implements DataSource {
@@ -18,13 +18,7 @@ export class WebSocketDataSource implements DataSource {
         return selectValue === "websocket-" + this.baseUrl
     }
     getSettings(): React.ReactNode {
-        return (
-            <div>
-                <TextField defaultValue={this.baseUrl} onChange={(event) => {
-                    this.setSocketUrl(event.target.value)
-                }} />
-                <WebsocketPortInfo url={this.baseUrl} onChange={this.openPort} />
-            </div>)
+        return <Settings source={this} />
     }
     openPort(newPort: PortInfo) {
         const params = new URLSearchParams()
@@ -62,32 +56,42 @@ export class WebSocketDataSource implements DataSource {
     begin() { }
 }
 
-class WebsocketPortInfo extends React.Component<{ url: string, onChange: (newPort: PortInfo) => void }, { ports: PortInfo[], selected: string }> {
-    private timerID: number
-    constructor(props: { url: string, onChange: (newPort: PortInfo) => void }) {
-        super(props)
-        this.state = { ports: [], selected: "" }
-        this.timerID = window.setInterval(async () => {
-            const deviceJSON = await fetch(this.props.url + "/devices")
-            this.setState(await deviceJSON.json())
-        }, 1000)
-    }
-    componentWillUnmount() {
-        window.clearInterval(this.timerID)
-    }
-    render() {
-        return (
-            <Select onChange={(event) => {
-                const newPort = this.state.ports.find(p => p.path === event.target.value)
-                if (newPort)
-                    this.props.onChange(newPort)
-            }}>
-                {this.state.ports.map(port => (
+const WebsocketPortInfo: React.FC<{ url: string, onChange: (newPort: PortInfo) => void }> = (props) => {
+    const [state, setState] = React.useState<{ ports: PortInfo[], selected: string }>({ ports: [], selected: "" })
+    const timerID = useRef(-1)
+    window.clearInterval(timerID.current)
+    const localURL = props.url
+    timerID.current = window.setInterval(async () => {
+        try {
+
+            const deviceJSON = await fetch(localURL + "/devices")
+            const ports = await deviceJSON.json()
+            setState({ ports: ports, selected: state.selected })
+        } catch (error) {
+            console.log(error)
+        }
+    }, 1000)
+    useEffect(() => {
+        return () => {
+            console.log("Clearing timer ", timerID.current, "before exit")
+            window.clearInterval(timerID.current)
+        }
+    },[])
+    return (
+        <Select value={state.selected} onChange={(event) => {
+            const newPort = state.ports.find(p => p.path === event.target.value)
+            if (newPort)
+                props.onChange(newPort)
+            setState({ ports: state.ports, selected: event.target.value as string })
+        }}>
+            {
+                state.ports.map(port => (
                     <MenuItem value={port.path}>{port.path} ({port.manufacturer})</MenuItem>
-                ))}
-            </Select>
-        )
-    }
+                ))
+            }
+        </Select >
+    )
+
 }
 
 interface PortInfo {
@@ -98,4 +102,17 @@ interface PortInfo {
     locationId?: string;
     productId?: string;
     vendorId?: string;
+}
+
+const Settings: React.FC<{ source: WebSocketDataSource }> = (props) => {
+    const [url, setURL] = React.useState<string>(props.source.baseUrl)
+    return (
+        <div>
+            <TextField defaultValue={props.source.baseUrl} onChange={(event) => {
+                props.source.setSocketUrl(event.target.value)
+                setURL(event.target.value)
+            }} />
+            <WebsocketPortInfo url={url} onChange={props.source.openPort} />
+        </div>
+    )
 }
