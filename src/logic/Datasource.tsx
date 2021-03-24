@@ -1,5 +1,6 @@
 import { Link, MenuItem, TextField } from "@material-ui/core";
 import React from "react"
+import { WebSocketDataSource } from "./WebSocketDatasource";
 export class AbstractStreamHook {
     /**this is called when data arrive on the plane */
     onData: ((data: ArrayBuffer) => void) | null = null;
@@ -35,48 +36,6 @@ export class DemoDataSource implements DataSource {
     begin() {
         this.hook.onData?.(sampleInputBuffer)
     }
-}
-export class WebSocketDataSource implements DataSource {
-    url: string = ""
-    socket: WebSocket | null = null
-    streamHook: AbstractStreamHook
-    constructor(url: string = window.location.href) {
-        this.setUrl(url)
-        this.streamHook = {
-            writeData: data => this.socket?.send(data),
-            onData: null
-        }
-    }
-    matchesStringValue(selectValue: string): boolean {
-        return selectValue === "websocket-" + this.url
-    }
-    getSettings(): React.ReactNode {
-        return (<TextField defaultValue={this.url} onChange={(event) => {
-            this.setUrl(event.target.value)
-        }} />)
-    }
-    close(): void {
-        this.socket?.close()
-    }
-    setUrl(newUrl: string) {
-        this.socket?.close()
-        try {
-            this.socket = new WebSocket(newUrl)
-        } catch (error) {
-
-        }
-        this.url = newUrl
-    }
-    getSelectOption(): React.ReactNode {
-        return (<MenuItem value={"websocket-" + this.url}>
-            <p>Websocket <Link>{this.url}</Link></p>
-        </MenuItem>)
-    }
-    getStreamHook(): AbstractStreamHook {
-        this.streamHook.writeData = data => this.socket?.send(data)
-        return this.streamHook
-    }
-    begin() { }
 }
 const socketSource = new WebSocketDataSource("")
 const demoSource = new DemoDataSource()
