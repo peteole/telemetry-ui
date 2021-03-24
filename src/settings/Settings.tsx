@@ -4,34 +4,40 @@ import React from 'react'
 import { dataSources } from '../logic/Datasource';
 import { Logic } from '../logic/logic'
 
-const useStyles = makeStyles((theme) => ({
-    button: {
-        display: 'block',
-        marginTop: theme.spacing(2),
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 160,
-    },
-}));
+// const useStyles = makeStyles((theme) => ({
+//     button: {
+//         display: 'block',
+//         marginTop: theme.spacing(2),
+//     },
+//     formControl: {
+//         margin: theme.spacing(1),
+//         minWidth: 160,
+//     },
+// }));
 
 
 type SettingsProps = {
     logic: Logic
 }
 export const Settings: React.FC<SettingsProps> = (props) => {
-    const classes = useStyles()
+    const [value, selectValue] = React.useState<string>("")
+    //const classes = useStyles()
+    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        props.logic.currentDataSource = dataSources.find((source) => source.matchesStringValue(event.target.value as string)) || null
+        selectValue(event.target.value as string)
+    }
     return (
 
         <Paper>
             <Typography component="h1">Settings</Typography>
             <Divider />
-            <FormControl className={classes.formControl}>
+            <FormControl className="settings-form">
                 <InputLabel>Data source</InputLabel>
-                <Select value="">
+                <Select value={value} onChange={handleChange}>
                     {dataSources.map(source => source.getSelectOption())}
                 </Select>
                 <FormHelperText>Data source to use</FormHelperText>
+                {props.logic.currentDataSource?.getSettings()}
             </FormControl>
         </Paper>
     )
