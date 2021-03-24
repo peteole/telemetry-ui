@@ -7,7 +7,7 @@ export class WebSocketDataSource implements DataSource {
     baseUrl: string = ""
     socket: WebSocket | null = null
     streamHook: AbstractStreamHook
-    constructor(baseUrl: string = window.location.href) {
+    constructor(baseUrl: string = "localhost:9091") {
         this.setSocketUrl(baseUrl)
         this.streamHook = {
             writeData: data => this.socket?.send(data),
@@ -21,10 +21,10 @@ export class WebSocketDataSource implements DataSource {
         return <Settings source={this} />
     }
     openPort(newPort: PortInfo) {
-        const params = new URLSearchParams()
-        params.set("path", newPort.path + "/open-port-request")
-        params.set("baud", "9600")
-        fetch(this.baseUrl + "/open-port-request?" + params.toString()).then(res => {
+        const url = new URL(this.baseUrl + "/open-port-request?")
+        url.searchParams.append("path", encodeURI(newPort.path))
+        url.searchParams.append("baud", "9600")
+        fetch(url.href).then(res => {
             res.text().then(text => {
                 if (text === "success") {
                     this.setSocketUrl(this.baseUrl, "/device" + newPort.path)
@@ -38,9 +38,13 @@ export class WebSocketDataSource implements DataSource {
     setSocketUrl(newUrl: string, socketURLExtension = "") {
         this.socket?.close()
         try {
-            this.socket = new WebSocket(newUrl + socketURLExtension)
+            this.socket = new WebSocket(newUrl.replace("http://", "ws://") + socketURLExtension)
+            this.socket.onopen = (ev) => {
+                this.socket?.send("Hallo Welt")
+            }
+            this.socket.onmessage = (ev) => console.log(ev.data)
         } catch (error) {
-
+            console.log(error)
         }
         this.baseUrl = newUrl
     }
@@ -76,7 +80,7 @@ const WebsocketPortInfo: React.FC<{ url: string, onChange: (newPort: PortInfo) =
             console.log("Clearing timer ", timerID.current, "before exit")
             window.clearInterval(timerID.current)
         }
-    },[])
+    }, [])
     return (
         <Select value={state.selected} onChange={(event) => {
             const newPort = state.ports.find(p => p.path === event.target.value)
@@ -112,7 +116,7 @@ const Settings: React.FC<{ source: WebSocketDataSource }> = (props) => {
                 props.source.setSocketUrl(event.target.value)
                 setURL(event.target.value)
             }} />
-            <WebsocketPortInfo url={url} onChange={props.source.openPort} />
+            <WebsocketPortInfo url={url} onChange={props.source.openPort.bind(props.source)} />
         </div>
     )
 }
