@@ -23,6 +23,7 @@ export const Settings: React.FC<SettingsProps> = (props) => {
     const [value, selectValue] = React.useState<string>("")
     //const classes = useStyles()
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        props.logic.currentDataSource?.close()
         props.logic.currentDataSource = dataSources.find((source) => source.matchesStringValue(event.target.value as string)) || null
         selectValue(event.target.value as string)
     }

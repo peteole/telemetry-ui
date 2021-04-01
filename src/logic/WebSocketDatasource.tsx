@@ -1,5 +1,4 @@
 import { Link, MenuItem, Select, TextField } from "@material-ui/core"
-import { ContactsOutlined } from "@material-ui/icons"
 import React, { useEffect, useRef } from "react"
 import { DataSource, AbstractStreamHook } from "./Datasource"
 
@@ -7,7 +6,7 @@ export class WebSocketDataSource implements DataSource {
     baseUrl: string = ""
     socket: WebSocket | null = null
     streamHook: AbstractStreamHook
-    constructor(baseUrl: string = "localhost:9091") {
+    constructor(baseUrl: string = "http://localhost:9091") {
         this.setSocketUrl(baseUrl)
         this.streamHook = {
             writeData: data => this.socket?.send(data),
@@ -42,7 +41,16 @@ export class WebSocketDataSource implements DataSource {
             this.socket.onopen = (ev) => {
                 this.socket?.send("Hallo Welt")
             }
-            this.socket.onmessage = (ev) => console.log(ev.data)
+            this.socket.onmessage = (ev) => {
+                console.log(ev.data);
+                try {
+                    (ev.data as Blob).arrayBuffer().then((buffer) => {
+                        this.streamHook.onData?.(buffer)
+                    })
+                } catch (error) {
+
+                }
+            }
         } catch (error) {
             console.log(error)
         }
