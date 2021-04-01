@@ -1,4 +1,4 @@
-import { Link, MenuItem, TextField } from "@material-ui/core";
+import {  MenuItem } from "@material-ui/core";
 import React from "react"
 import { WebSocketDataSource } from "./WebSocketDatasource";
 export class AbstractStreamHook {
@@ -37,7 +37,7 @@ export class DemoDataSource implements DataSource {
         this.hook.onData?.(sampleInputBuffer)
     }
 }
-const socketSource = new WebSocketDataSource("")
+const socketSource = new WebSocketDataSource()
 const demoSource = new DemoDataSource()
 export const dataSources = [demoSource, socketSource]
 
