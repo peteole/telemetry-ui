@@ -12,12 +12,12 @@ type NavigationProps = {
 }
 export const Navigation: React.FC<NavigationProps> = (props) => (
     <div>
-        <Grid container spacing={3} alignItems="center" alignContent="center">
-            <Grid item>
+        <Grid container spacing={3} className="nav-grid" >
+            <Grid item style={{ flexGrow: 0 }}>
                 {props.children.horizon}
             </Grid>
 
-            <Grid item xs={3}>
+            <Grid item>
                 {props.children.settings}
             </Grid>
         </Grid>

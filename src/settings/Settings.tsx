@@ -3,7 +3,7 @@ import { Divider, Paper, Typography } from '@material-ui/core'
 import React from 'react'
 import { dataSources } from '../logic/Datasource';
 import { Logic } from '../logic/logic'
-
+import "./settings.css"
 // const useStyles = makeStyles((theme) => ({
 //     button: {
 //         display: 'block',
@@ -28,7 +28,7 @@ export const Settings: React.FC<SettingsProps> = (props) => {
     }
     return (
 
-        <Paper>
+        <Paper className="settings-grid-element">
             <Typography component="h1">Settings</Typography>
             <Divider />
             <FormControl className="settings-form">

@@ -1,0 +1,7 @@
+.nav-grid{
+    align-items:center;
+    align-content: center;
+}
+.nav-grid >*{
+    flex-grow: 1;
+}
