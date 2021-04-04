@@ -1,8 +1,10 @@
-import { MessageRegistry } from "telemetryprotocolclient/dist/index"
+import { Message, MessageRegistry } from "telemetryprotocolclient/dist/index"
+import { StreamMessage } from "telemetryprotocolclient/dist/Message"
 import { AbstractStreamHook, DataSource } from "./Datasource"
 
 
 export class Logic {
+    onMessage: (message: string) => void = message => console.log(message)
     registry: MessageRegistry | null = null
     onUpdate: () => void
     data = {
@@ -26,6 +28,7 @@ export class Logic {
     private setStreamHook(streamHook: AbstractStreamHook | null) {
         this.streamHook = streamHook
         this.registry = new MessageRegistry()
+        this.registry.onMessage = this.onMessage
         if (streamHook)
             streamHook.onData = (data) => {
                 if (!this.registry)
@@ -38,5 +41,19 @@ export class Logic {
                 }
                 this.onUpdate()
             }
+    }
+    sendMessage(message: Message | string) {
+        if (!this.registry)
+            return
+        if (typeof message === 'string') {
+            this.registry.streamMessage.append(message)
+            this.sendMessage(this.registry.streamMessage)
+        } else if (message.value.name === "stream") {
+            //Use custom encoding when sending text messages
+            this.currentDataSource?.getStreamHook().writeData((message as StreamMessage).encodeAndFlush())
+        } else {
+            const toSend = this.registry.encodeMessage(message)
+            this.currentDataSource?.getStreamHook().writeData(toSend)
+        }
     }
 }

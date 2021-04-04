@@ -1,0 +1,14 @@
+.terminal{
+    min-width: 25vw;
+    min-height: 25vh;
+    max-width: 90vw;
+    max-height: 50vh;
+    overflow-y: scroll;
+    position:relative;
+}
+.terminal>input{
+    position: absolute;
+    bottom: 5px;
+    left:5%;
+    width: 90%;
+}

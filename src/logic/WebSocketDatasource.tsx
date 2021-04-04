@@ -46,7 +46,6 @@ export class WebSocketDataSource implements DataSource {
                 this.socket?.send("Hallo Welt")
             }
             this.socket.onmessage = (ev) => {
-                console.log(ev.data);
                 try {
                     (ev.data as Blob).arrayBuffer().then((buffer) => {
                         this.streamHook.onData?.(buffer)
