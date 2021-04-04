@@ -57,7 +57,8 @@ export class WebSocketDataSource implements DataSource {
         this.baseUrl = newUrl
     }
     getSelectOption(): React.ReactNode {
-        return (<MenuItem value={"websocket-" + this.baseUrl}>
+        const id="websocket-" + this.baseUrl
+        return (<MenuItem key={id} value={id}>
             <p>Websocket <Link>{this.baseUrl}</Link></p>
         </MenuItem>)
     }

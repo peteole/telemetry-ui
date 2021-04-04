@@ -33,13 +33,13 @@ export const Settings: React.FC<SettingsProps> = (props) => {
             <Typography component="h1">Settings</Typography>
             <Divider />
             <FormControl className="settings-form">
-                <InputLabel>Data source</InputLabel>
-                <Select value={value} onChange={handleChange}>
+                <InputLabel htmlFor="datasource-select">Data source</InputLabel>
+                <Select id="datasource-select" value={value} onChange={handleChange}>
                     {dataSources.map(source => source.getSelectOption())}
                 </Select>
                 <FormHelperText>Data source to use</FormHelperText>
-                {props.logic.currentDataSource?.getSettings()}
             </FormControl>
+            {props.logic.currentDataSource?.getSettings()}
         </Paper>
     )
 }

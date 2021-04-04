@@ -27,7 +27,7 @@ export class DemoDataSource implements DataSource {
         return null
     }
     getSelectOption(): React.ReactNode {
-        return (<MenuItem value="demo">Demo data</MenuItem>)
+        return (<MenuItem key="demo" value="demo">Demo data</MenuItem>)
     }
     getStreamHook(): AbstractStreamHook {
         return this.hook
