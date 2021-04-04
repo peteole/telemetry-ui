@@ -11006,7 +11006,7 @@
 
 "telemetryprotocolclient@file:../telemetryProtocolClient":
   "resolved" "file:../telemetryProtocolClient"
-  "version" "0.1.0"
+  "version" "0.1.2"
 
 "temp-dir@^1.0.0":
   "integrity" "sha1-CnwOom06Oa+n4OvqnB/AvE2qAR0="
