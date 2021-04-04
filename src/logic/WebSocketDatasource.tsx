@@ -1,5 +1,6 @@
 import { Link, MenuItem, Select, TextField } from "@material-ui/core"
 import React, { useEffect, useRef } from "react"
+import { isReturnStatement } from "typescript"
 import { DataSource, AbstractStreamHook } from "./Datasource"
 
 export class WebSocketDataSource implements DataSource {
@@ -20,6 +21,8 @@ export class WebSocketDataSource implements DataSource {
         return <Settings source={this} />
     }
     openPort(newPort: PortInfo) {
+        this.socket?.close();
+        this.socket=null;
         const url = new URL(this.baseUrl + "/open-port-request?")
         url.searchParams.append("path", encodeURI(newPort.path))
         url.searchParams.append("baud", "9600")
@@ -35,9 +38,10 @@ export class WebSocketDataSource implements DataSource {
         this.socket?.close()
     }
     setSocketUrl(newUrl: string, socketURLExtension = "") {
+        const parsedURL = newUrl.replace("http://", "ws://") + socketURLExtension
         this.socket?.close()
         try {
-            this.socket = new WebSocket(newUrl.replace("http://", "ws://") + socketURLExtension)
+            this.socket = new WebSocket(parsedURL)
             this.socket.onopen = (ev) => {
                 this.socket?.send("Hallo Welt")
             }
@@ -57,7 +61,7 @@ export class WebSocketDataSource implements DataSource {
         this.baseUrl = newUrl
     }
     getSelectOption(): React.ReactNode {
-        const id="websocket-" + this.baseUrl
+        const id = "websocket-" + this.baseUrl
         return (<MenuItem key={id} value={id}>
             <p>Websocket <Link>{this.baseUrl}</Link></p>
         </MenuItem>)
