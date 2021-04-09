@@ -21,10 +21,12 @@ export const Terminal: React.FC<TerminalProps> = (props) => {
     }
     return (
         <Paper className="terminal">
+            <div className="terminal-output-container">
+                {lines.map((line) => (
+                    <p>{line}</p>
+                ))}
+            </div>
             <input ref={inputRef} onKeyPress={(event) => { if (event.key === "Enter") handleInput() }} />
-            {lines.map((line) => (
-                <p>{line}</p>
-            ))}
         </Paper>
     )
 }

@@ -29,6 +29,10 @@ export class Logic {
         this.streamHook = streamHook
         this.registry = new MessageRegistry()
         this.registry.onMessage = this.onMessage
+        this.registry.onUnknownMessage = () => {
+            if (this.registry)
+                this.sendMessage(this.registry.messageDefinitionMessage)
+        }
         if (streamHook)
             streamHook.onData = (data) => {
                 if (!this.registry)
