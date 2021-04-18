@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/telemetry-ui/static/css/main.d7717acf.chunk.css",
-    "main.js": "/telemetry-ui/static/js/main.4e248976.chunk.js",
-    "main.js.map": "/telemetry-ui/static/js/main.4e248976.chunk.js.map",
+    "main.js": "/telemetry-ui/static/js/main.a2f5827e.chunk.js",
+    "main.js.map": "/telemetry-ui/static/js/main.a2f5827e.chunk.js.map",
     "runtime-main.js": "/telemetry-ui/static/js/runtime-main.353623ed.js",
     "runtime-main.js.map": "/telemetry-ui/static/js/runtime-main.353623ed.js.map",
     "static/js/2.e7e93813.chunk.js": "/telemetry-ui/static/js/2.e7e93813.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.353623ed.js",
     "static/js/2.e7e93813.chunk.js",
     "static/css/main.d7717acf.chunk.css",
-    "static/js/main.4e248976.chunk.js"
+    "static/js/main.a2f5827e.chunk.js"
   ]
 }
