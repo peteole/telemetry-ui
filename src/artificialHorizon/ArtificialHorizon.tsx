@@ -2,6 +2,7 @@ import React from "react";
 import { Component, RefObject } from "react";
 import { Gauge } from "../gauge/Gauge";
 import "./ArtificialHorizon.css"
+/**All angles in radians!!! */
 type ArtificialHorizonProps = {
     pitch: number,
     bank: number,
@@ -31,7 +32,7 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
         return (
             <div className="ah-container" style={{ height: this.props.height, width: this.props.width }}>
                 <canvas className="ah-canvas" ref={this.canvasRef} height={this.props.height} width={this.props.width} />
-                <Gauge className="heading-gauge" ref={this.headingRef} height={this.props.height * 0.08} orientation={"horizontal"} width={this.props.width * 0.7} value={this.props.heading} />
+                <Gauge className="heading-gauge" ref={this.headingRef} height={this.props.height * 0.08} orientation={"horizontal"} width={this.props.width * 0.7} value={(this.props.heading * 180 / Math.PI + 720) % 360} />
                 <Gauge className="alt-gauge" ref={this.altitudeRef} height={this.props.height} orientation={"verticalR"} width={this.props.width * 0.12} value={this.props.altitude} />
                 <Gauge className="speed-gauge" ref={this.speedRef} height={this.props.height} orientation={"verticalL"} width={this.props.width * 0.13} value={this.props.speed} />
             </div>
@@ -47,8 +48,8 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
             return
         //render artificial horizon here. Access pitch and bank using this.props.pitch.
 
-        const pitch = this.props.pitch
-        const bank = this.props.bank
+        const pitchDeg = this.props.pitch * 180 / Math.PI
+        const bankDeg = this.props.bank * 180 / Math.PI
         const factor = 8
         const width = this.props.width
         const height = this.props.height
@@ -56,8 +57,8 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
         var fheight = factor * height
         //horizon
         ctx.translate(width / 2, height / 2);
-        ctx.rotate(-bank * Math.PI / 180);
-        ctx.translate(0, factor * pitch);
+        ctx.rotate(-bankDeg * Math.PI / 180);
+        ctx.translate(0, factor * pitchDeg);
         ctx.fillStyle = "brown";
         ctx.fillRect(-fwidth / 2, 0, fwidth, fheight / 2);
         ctx.fillStyle = "blue";
@@ -89,7 +90,7 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
         }
 
 
-        ctx.translate(0, -factor * pitch);
+        ctx.translate(0, -factor * pitchDeg);
         /**scale bank */
         ctx.rotate(30 * Math.PI / 180);
         for (let i = -30; i <= 30; i = i + 10) {
@@ -104,7 +105,7 @@ export class ArtificialHorizon extends Component<ArtificialHorizonProps, {}>{
         }
         ctx.rotate(40 * Math.PI / 180);
 
-        ctx.rotate(bank * Math.PI / 180);
+        ctx.rotate(bankDeg * Math.PI / 180);
         ctx.translate(-width / 2, -height / 2);
 
         //circle
