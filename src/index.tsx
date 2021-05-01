@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { Logic } from './logic/logic';
+//const socket = new WebSocket("localhost:8081")
+const logic = new Logic()
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App logic={logic} />
   </React.StrictMode>,
   document.getElementById('root')
 );

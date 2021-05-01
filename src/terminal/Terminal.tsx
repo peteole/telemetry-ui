@@ -1,32 +1,32 @@
-import React from "react";
-import { Component, RefObject } from "react";
+import { Paper } from "@material-ui/core";
+import React, { useRef, useState } from "react";
+import { Logic } from "../logic/logic";
+import "./terminal.css"
 
-type GaugeProps = {
-    value: number,
-    orientation: "horizonal" | "vertical"
+type TerminalProps = {
+    logic: Logic
 }
-export class Terminal extends Component<GaugeProps, { lines: string[] }>{
-    canvasRef: RefObject<HTMLCanvasElement>
-
-    constructor(props: GaugeProps) {
-        super(props)
-        this.canvasRef = React.createRef<HTMLCanvasElement>()
-        this.state = { lines: [] }
+export const Terminal: React.FC<TerminalProps> = (props) => {
+    const [lines, setLines] = useState<string[]>([])
+    props.logic.onMessage = (input) => {
+        lines.push(input)
+        setLines(lines)
     }
-    render() {
-        return (
-            <div>
-                {this.state.lines.map((line) => (
-                    <p>line</p>
+    const inputRef = useRef<HTMLInputElement>(null)
+    const handleInput = () => {
+        if (inputRef.current) {
+            props.logic.sendMessage(inputRef.current.value)
+            inputRef.current.value = ""
+        }
+    }
+    return (
+        <Paper className="terminal">
+            <div className="terminal-output-container">
+                {lines.map((line) => (
+                    <p>{line}</p>
                 ))}
-                <input />
             </div>
-        )
-    }
-    addLine(line: string) {
-        this.setState({ lines: [...this.state.lines, line] })
-    }
-    clear() {
-        this.setState({ lines: [] })
-    }
+            <input ref={inputRef} onKeyPress={(event) => { if (event.key === "Enter") handleInput() }} />
+        </Paper>
+    )
 }

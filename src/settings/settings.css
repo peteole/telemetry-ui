@@ -1,0 +1,10 @@
+.settings-form *{
+    margin:var(--spacing)
+}
+.settings-grid-element{
+    padding: var(--padding-space);
+    min-width: 300px;
+}
+.settings-grid-element>*{
+    width: 80%;
+}

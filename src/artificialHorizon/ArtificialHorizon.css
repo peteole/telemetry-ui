@@ -14,9 +14,10 @@
     top: 0px;
 }
 .ah-container{
-    position: absolute;
+    position: relative;
     left: 0px;
     top: 0px;
+    flex-grow: 0;
 }
 .ah-canvas{
     position: absolute;
