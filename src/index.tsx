@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Logic } from './logic/logic';
+import "leaflet";
 //const socket = new WebSocket("localhost:8081")
 const logic = new Logic()
 ReactDOM.render(

@@ -8,7 +8,8 @@ type NavigationProps = {
     children: {
         horizon: React.ReactNode,
         settings: React.ReactNode,
-        terminal: React.ReactNode
+        terminal: React.ReactNode,
+        map:React.ReactNode
     }
 }
 export const Navigation: React.FC<NavigationProps> = (props) => (
@@ -24,6 +25,10 @@ export const Navigation: React.FC<NavigationProps> = (props) => (
 
             <Grid item>
                 {props.children.terminal}
+            </Grid>
+
+            <Grid item>
+                {props.children.map}
             </Grid>
         </Grid>
     </div>
