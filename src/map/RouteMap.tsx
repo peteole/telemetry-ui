@@ -1,19 +1,23 @@
 import { FC } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-export const RouteMap: FC = props => {
+import { MapContainer, TileLayer, Polyline } from 'react-leaflet'
+export type mapProps = {
+    route: [number, number][];
+}
+export const RouteMap: FC<mapProps> = props => {
+    props.route = props.route.filter(el => isPlausible(el[0]) && isPlausible(el[1]));
+    const center: [number, number] = (props.route.length > 0) ? props.route[0] : [51.505, -0.09];
     return (
         <div style={{ height: "400px" }}>
-            <MapContainer style={{ height: "50vh", width: "90vw" }} center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} >
+            <MapContainer style={{ height: "50vh", width: "90vw" }} center={center} zoom={13} scrollWheelZoom={true} >
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={[51.505, -0.09]}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
+                <Polyline positions={props.route} />
             </MapContainer>
         </div>
     )
+}
+const isPlausible = (pos: number) => {
+    return isFinite(pos) && !isNaN(pos) && pos !== 0
 }

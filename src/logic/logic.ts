@@ -14,6 +14,7 @@ export class Logic {
         speed: 0,
         altitude: 0
     }
+    route: [number, number][] = [];
     private _currentDataSource: DataSource | null = null
     private streamHook: AbstractStreamHook | null = null
     constructor(onUpdate = () => { }) {
@@ -37,6 +38,14 @@ export class Logic {
             streamHook.onData = (data) => {
                 if (!this.registry)
                     return
+                const lat = this.registry.basicSensorValues.find(val => val.name === "latitude")
+                const lon = this.registry.basicSensorValues.find(val => val.name === "longitude")
+                if (lat && lon) {
+                    // lon is updated too if lat is updated
+                    lat.onUpdate = () => {
+                        this.route.push([lat.value, lon.value])
+                    }
+                }
                 this.registry.readData(data)
                 for (const sensVal of this.registry.basicSensorValues || []) {
                     if (Object.keys(this.data).includes(sensVal.name)) {
