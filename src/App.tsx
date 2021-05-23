@@ -21,7 +21,7 @@ class App extends React.Component<{ logic: Logic }, {}> {
             horizon: <ArtificialHorizon pitch={this.props.logic.data.pitch} bank={this.props.logic.data.bank} heading={this.props.logic.data.heading} altitude={this.props.logic.data.altitude} speed={this.props.logic.data.speed} />,
             settings: <Settings logic={this.props.logic} />,
             terminal: <Terminal logic={this.props.logic} />,
-            map: <RouteMap />
+            map: <RouteMap route={this.props.logic.route} />
           }}
         </Navigation>
 
