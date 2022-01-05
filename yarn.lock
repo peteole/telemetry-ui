@@ -11004,9 +11004,10 @@
     "mkdirp" "^1.0.3"
     "yallist" "^4.0.0"
 
-"telemetryprotocolclient@file:../telemetryProtocolClient":
-  "resolved" "file:../telemetryProtocolClient"
-  "version" "0.1.2"
+"telemetryprotocolclient@^0.1.6":
+  "integrity" "sha512-8MR7P9RiOhWDjpdqVJaoJT8lsTBWumbSQYw7j2z6a131wqcFID/wzpyEKHFtP6JlLmxiMJmVOALfY/sAtku3gg=="
+  "resolved" "https://registry.npmjs.org/telemetryprotocolclient/-/telemetryprotocolclient-0.1.6.tgz"
+  "version" "0.1.6"
 
 "temp-dir@^1.0.0":
   "integrity" "sha1-CnwOom06Oa+n4OvqnB/AvE2qAR0="
