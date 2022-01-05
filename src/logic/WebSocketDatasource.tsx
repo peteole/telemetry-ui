@@ -1,6 +1,5 @@
 import { Link, MenuItem, Select, TextField } from "@material-ui/core"
 import React, { useEffect, useRef } from "react"
-import { isReturnStatement } from "typescript"
 import { DataSource, AbstractStreamHook } from "./Datasource"
 
 export class WebSocketDataSource implements DataSource {
@@ -22,7 +21,7 @@ export class WebSocketDataSource implements DataSource {
     }
     openPort(newPort: PortInfo) {
         this.socket?.close();
-        this.socket=null;
+        this.socket = null;
         const url = new URL(this.baseUrl + "/open-port-request?")
         url.searchParams.append("path", encodeURI(newPort.path))
         url.searchParams.append("baud", "9600")
